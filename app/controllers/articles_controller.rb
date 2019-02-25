@@ -1,3 +1,4 @@
+require 'pry'
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all
@@ -8,7 +9,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    # @article = Article.new
   end
 
   def create
@@ -19,5 +20,17 @@ class ArticlesController < ApplicationController
     redirect_to article_path(@article)
   end
 
-  # add edit and update methods here
+  def edit
+    @article = Article.find(params[:id])
+    # binding.pry
+  end
+
+  def update
+    # binding.pry
+    @article = Article.find(params[:id])
+    @article.title = params[:article][:title]
+    @article.description = params[:article][:description]
+    @article.save
+    redirect_to article_path(@article)
+  end
 end
